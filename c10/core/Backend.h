@@ -25,7 +25,7 @@ namespace c10 {
  * or "SparseCUDA"; backend in torch.backends is something like "MKL" or
  * "CUDNN".
  */
-enum class Backend { CPU, CUDA, HIP, SparseCPU, SparseCUDA, SparseHIP, MSNPU, XLA, QuantizedCPU, ComplexCPU, ComplexCUDA, Undefined, MkldnnCPU, NumOptions };
+enum class Backend { CPU, CUDA, HIP, SparseCPU, SparseCUDA, SparseHIP, MSNPU, XLA, QuantizedCPU, ComplexCPU, ComplexCUDA, CUDALite, Undefined, MkldnnCPU, NumOptions };
 
 static inline Backend toSparse(Backend b) {
   switch (b) {
@@ -70,6 +70,8 @@ static inline Backend toDense(Backend b) {
       return Backend::ComplexCPU;
     case Backend::ComplexCUDA:
       return Backend::ComplexCUDA;
+    case Backend::CUDALite:
+      return Backend::CUDALite;
     default:
       throw std::runtime_error("Unknown backend");
   }
@@ -100,6 +102,8 @@ static inline Backend tensorTypeIdToBackend(TensorTypeId t) {
     return Backend::ComplexCPU;
   } else if (t == TensorTypeId::ComplexCUDATensorId) {
     return Backend::ComplexCUDA;
+  } else if (t == TensorTypeId::CUDALiteTensorId) {
+    return Backend::CUDALite;
   } else if (t == TensorTypeId::UndefinedTensorId) {
     return Backend::Undefined;
   } else {
@@ -133,6 +137,8 @@ static inline TensorTypeId backendToTensorTypeId(Backend b) {
       return TensorTypeId::ComplexCPUTensorId;
     case Backend::ComplexCUDA:
       return TensorTypeId::ComplexCUDATensorId;
+    case Backend::CUDALite:
+      return TensorTypeId::CUDALiteTensorId;
     case Backend::Undefined:
       return TensorTypeId::UndefinedTensorId;
     default:
@@ -164,6 +170,8 @@ static inline DeviceType backendToDeviceType(Backend b) {
       return DeviceType::CPU;
     case Backend::ComplexCUDA:
       return DeviceType::CUDA;
+    case Backend::CUDALite:
+      return DeviceType::CPU;
     case Backend::Undefined:
       AT_ERROR("Undefined backend is not a valid device type");
     default:
@@ -176,6 +184,8 @@ static inline Backend backendToCPU(Backend b) {
     case Backend::CPU:
       return Backend::CPU;
     case Backend::CUDA:
+      return Backend::CPU;
+    case Backend::CUDALite:
       return Backend::CPU;
     case Backend::HIP:
       return Backend::CPU;
@@ -206,6 +216,7 @@ static inline Backend backendToCUDA(Backend b) {
   switch (b) {
     case Backend::CPU:
     case Backend::CUDA:
+    case Backend::CUDALite:
     case Backend::HIP:
     case Backend::MSNPU:
     case Backend::XLA:
@@ -228,6 +239,7 @@ static inline Backend backendToHIP(Backend b) {
   switch (b) {
     case Backend::CPU:
     case Backend::CUDA:
+    case Backend::CUDALite:
     case Backend::HIP:
     case Backend::MSNPU:
     case Backend::XLA:
@@ -270,6 +282,8 @@ static inline const char* toString(Backend b) {
       return "ComplexCPU";
     case Backend::ComplexCUDA:
       return "ComplexCUDA";
+    case Backend::CUDALite:
+      return "CUDALite";
     default:
       return "UNKNOWN_BACKEND";
   }

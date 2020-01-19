@@ -143,12 +143,16 @@ cuda_file_manager = FileManager()
 def backend_to_devicetype(backend):
     if backend == 'QuantizedCPU':
         return 'CPU'
+    elif backend == 'CUDALite':
+        return 'CPU'
     return backend
 
 backends = ['CPU', 'CUDA']
 densities = ['Dense', 'Sparse', 'Mkldnn']  # TODO: layout instead of densities?
 
 quantized_backends = ['QuantizedCPU']
+
+cudalite_backends = ['CUDALite']
 
 # scalar_name, c_type, accreal, is_floating_type
 quantized_scalar_types = [
@@ -321,6 +325,8 @@ def iterate_types():
             else:
                 yield (backend, density)
     for backend in quantized_backends:
+        yield (backend, 'Dense')
+    for backend in cudalite_backends:
         yield (backend, 'Dense')
 
 

@@ -37,6 +37,7 @@ enum class TensorTypeId : uint8_t {
   QuantizedCPUTensorId, // PyTorch only
   ComplexCPUTensorId, // PyTorch only
   ComplexCUDATensorId, // PyTorch only
+  CUDALiteTensorId, // PyTorch only
 
   // Sparse has multi-dispatch with dense; handle it first
   SparseCPUTensorId, // PyTorch only

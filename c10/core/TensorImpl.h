@@ -901,6 +901,7 @@ struct C10_API TensorImpl : public c10::intrusive_ptr_target {
     auto is_dense = [](TensorTypeSet ts) {
       return ts.has(TensorTypeId::CPUTensorId) ||
              ts.has(TensorTypeId::CUDATensorId) ||
+             ts.has(TensorTypeId::CUDALiteTensorId) ||
              ts.has(TensorTypeId::HIPTensorId);
     };
     auto is_sparse = [](TensorTypeSet ts) {
