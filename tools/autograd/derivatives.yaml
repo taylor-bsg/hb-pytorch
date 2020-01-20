@@ -888,6 +888,10 @@
 - name: to_mkldnn(Tensor self) -> Tensor
   self: to_mkldnn_backward(grad, self)
 
+- name: to_cudalite(Tensor self) -> Tensor
+  self: to_mkldnn_backward(grad, self)
+  # this is fake!
+
 - name: unfold(Tensor(a) self, int dimension, int size, int step) -> Tensor(a)
   self: unfold_backward(grad, self.sizes(), dimension, size, step)
 

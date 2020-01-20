@@ -3424,6 +3424,12 @@
   dispatch:
     CPU: dense_to_mkldnn
 
+- func: to_cudalite(Tensor self) -> Tensor
+  use_c10_dispatcher: full
+  variants: method
+  dispatch:
+    CPU: dense_to_cudalite
+
 - func: mkldnn_reorder_conv2d_weight(Tensor self, int[2] padding=0, int[2] stride=1, int[2] dilation=1, int groups=1) -> Tensor
   variants: function
   python_module: nn
