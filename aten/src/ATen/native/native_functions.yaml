@@ -1008,6 +1008,7 @@
   dispatch:
     CPU: empty_cpu
     CUDA: empty_cuda
+    CUDALite: empty_cudalite
     MkldnnCPU: empty_mkldnn
     SparseCPU: empty_sparse
     SparseCUDA: empty_sparse
@@ -1059,6 +1060,7 @@
   dispatch:
     CPU: empty_strided_cpu
     CUDA: empty_strided_cuda
+    CUDALite: empty_strided_cudalite
 
 - func: erf(Tensor self) -> Tensor
   use_c10_dispatcher: full
