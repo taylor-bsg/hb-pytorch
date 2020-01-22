@@ -70,5 +70,9 @@ Tensor empty_strided_cudalite(IntArrayRef size, IntArrayRef stride, const Tensor
   return t;
 }
 
+Tensor add_cudalite(const Tensor& self, const Tensor& other, Scalar alpha) {
+  AT_ERROR("test test test! this is a CUDALite test!");
+}
+
 } // namespace native
 } // namespace at

@@ -277,7 +277,7 @@
   dispatch:
     CPU: add
     CUDA: add
-    CUDALite: add
+    CUDALite: add_cudalite
     SparseCPU: add_sparse
     SparseCUDA: add_sparse
     MkldnnCPU: mkldnn_add
